@@ -1,0 +1,57 @@
+user_homepage:
+    path:     /
+    defaults: { _controller: UserBundle:Default:index }
+profile_user:
+    path:     /profile
+    defaults: { _controller: UserBundle:Default:profile}
+studentlist:
+    path:     /studentlist
+    defaults: { _controller: UserBundle:Default:studentList}
+profilestudent:
+    path:    /studentprofile
+    defaults: { _controller: UserBundle:Default:profilethroughtproffesor}
+addentreprise:
+    path:    /addentreprise
+    defaults: { _controller: UserBundle:Default:addEntreprise}
+listentreprise:
+    path:   /listentreprise
+    defaults: { _controller: UserBundle:Default:listentreprise}
+applyinternship:
+    path:   /apply
+    defaults: { _controller: UserBundle:Default:addaffectation}
+addinformationstudent:
+    path:   /studentinformation
+    defaults: { _controller: UserBundle:Default:addinformationstudent}
+listaffectaion:
+    path:   /listaffectation
+    defaults: { _controller: UserBundle:Default:listaffectation}
+listaffectationmonitor:
+    path:   /listaffectationmonitor
+    defaults: { _controller: UserBundle:Default:listaffectationmonitor}
+rejectaffectationteacher:
+    path:   /rejectaffectationteacher
+    defaults: { _controller: UserBundle:Default:rejectAffectationteacher}
+rejectaffectationmonitor:
+    path:   /rejectaffectationmonitor
+    defaults: { _controller: UserBundle:Default:rejectAffectationmonitor}
+acceptinternshipmonitor:
+    path:   /acceptaffectationmonitor
+    defaults: { _controller: UserBundle:Default:acceptinternship}
+listaffectationprovider:
+    path:   /listaffectationprovider
+    defaults: { _controller: UserBundle:Default:listAffectationprovider}
+addingformationprovider:
+    path:   /addingformationsupervisor
+    defaults: { _controller: UserBundle:Default:addprovider}
+rejectaffectationprovider:
+    path:   /rejectformationprovider
+    defaults: { _controller: UserBundle:Default:rejectformationProvider}
+allmessage:
+    path:   /allmessagesuser
+    defaults: { _controller: UserBundle:Default:AlllistMessage}
+sendmessage:
+    path:   /sendMessage
+    defaults: { _controller: UserBundle:Default:sendmessage}
+downloadfile:
+    path:   /download
+    defaults: { _controller: UserBundle:Default:DownloadFile}

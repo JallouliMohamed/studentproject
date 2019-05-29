@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section id="courses-section" class="popular-courses-area bg-gray s-pd2">
+        <div class="container">
+
+                <div class="row justify-content-md-center">
+                    <div class="col-lg-8">
+                        <div class="section-heading-area text-center">
+                            <h2 class="section-heading text-capitalize">Your Students</h2>
+                        </div><!--/.section-heading-area-->
+                    </div><!--/.col-lg-8-->
+                </div>
+            <div class="row courses-item-content">
+    {% for user in users %}
+
+
+                <div class="col-lg-4 col-sm-6 design photography">
+                    <!--Single Course Item Start-->
+                    <div class="single-course-item border-radius">
+                        <div class="course-thumb-area">
+                            <img  src="{{ asset('images.png') }}" width="50" height="50" alt="img">
+                            <div class="course-meta">
+                                <a href="#"><i class="fa fa-heart-o"></i></a>
+                                <a href="#"><i class="fa fa-share-alt"></i></a>
+                            </div>
+                            <span class="course-duration">2.2 hours</span>
+                        </div><!--/.course-thumb-area-->
+                        <div class="course-content">
+                            <h2><a href="single-course.html"></a></h2>
+                            <p></p>
+                            <div class="course-reviews">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                <span class="total-reviews">(105 reviews)</span>
+                            </div><!--/.course-reviews-->
+                            <div class="trainer-profile clearfix">
+                                <img class="rounded-circle" src="{{ asset('uploads/brochures/' ~ user.image) }}" alt="img">
+                                <div class="trainer-info">
+                                    <h3>{{ user.username }}</h3>
+                                    <p>24 april 2017</p>
+                                </div>
+                                <div class="course-cat text-capitalize text-right"><a href="{{ path('profilestudent', {'id': user.id}) }}">Profile</a></div>
+                            </div><!--/.trainer-profile-->
+                        </div><!--/.course-content-->
+                    </div><!--/.single-course-item-end-->
+                </div>{% endfor %}<!--/.col-lg-4--></div></div></section>
+
+
+        <script>
+
+
+
+
+        </script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <section id="learning-section" class="learning-section-area s-pd2">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-8">
+                    <div class="section-heading-area text-center">
+                        <h2 class="section-heading text-capitalize">List of messages</h2>
+                    </div><!--/.section-heading-area-->
+                </div><!--/.col-lg-8-->
+            </div><!--/.row-->
+            <div class="row">
+                {% for m in messages %}
+                <div class="col-lg-4 col-sm-12">
+                    <div class="single-learning-item bg-image" style="background-image: url({{ asset('images/learning/1.jpg') }});">
+                        <div class="learning-overlay-text tb">
+                            <div class="tb-cell">
+                                <span class="course-duration">From : {{ m.sender.username }}</span>
+                                <h2><a href="single-course.html">{{ m.subject }}</a></h2>
+                                <p>{{ m.body }}</p>
+                                <a href="{{ path('downloadfile',{'id':m.id}) }}" class="btn btn-default">Joined File</a>
+                            </div>
+                        </div><!--/.learning-overlay-text-->
+                    </div><!--/.single-learning-item-->
+                </div><!--/.col-lg-4-->
+                {% endfor %}
+               <!--/.col-lg-4-->
+
+
+
+
+
+
+            </div><!--/.row-->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="group-btn text-center">
+                        <a href="#" class="btn btn-default btn-primary"></a>
+                        <a href="#" class="btn btn-default"></a>
+                    </div><!--/.group-btn-->
+                </div><!--/.col-lg-12-->
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </section><!--/#learning-section-->
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

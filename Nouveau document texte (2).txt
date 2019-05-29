@@ -1,0 +1,211 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package edu.espritentraid.services;
+
+import edu.espritentraid.entities.Connecte;
+import edu.espritentraid.entities.User;
+import edu.espritentraid.utils.MyConnexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.mindrot.jbcrypt.BCrypt;
+
+/**
+ *
+ * @author mohamedahmed
+ */
+public class UserService {
+
+    MyConnexion c = MyConnexion.getInstance();
+    private final Connection con = MyConnexion.getInstance().getConnection();
+
+    public String inscription(User user) {
+        //User users = new User();
+        String name = user.getNom();
+        String email = user.getEmail();
+        String password = user.getPassword();
+        String username_canonical = user.getNom();
+        String email_canonical = user.getEmail();
+        Boolean enabled = true;
+        String roles = "";
+        String image = "";
+        //String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+        String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        //hashed.replace("$2a$", "$2y$");
+        hashed = hashed.replace("$2a$", "$2y$");
+        System.out.println(hashed);
+
+        try {
+            System.out.println("test");
+            String requete = "insert into fos_user (username,email,password,username_canonical,email_canonical,enabled,roles,image) values(?,?,?,?,?,?,?,?)";
+
+            PreparedStatement st = con.prepareStatement(requete);
+            st.setString(1, name);
+            st.setString(2, email);
+            st.setString(3, hashed);
+            st.setString(4, username_canonical);
+            st.setString(5, email_canonical);
+            st.setBoolean(6, enabled);
+            st.setString(7, roles);
+            st.setString(8, image);
+
+            st.executeUpdate();
+            return "user ajouter";
+        } catch (SQLException ex) {
+            return ex.getMessage();
+        }
+
+    }
+
+    public User connecte(User user) throws SQLException {
+        String name = user.getNom();
+        String password = user.getPassword();
+        String req = "select * from fos_user where username='" + name + "'";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        User u = new User();
+        if (rs.next()) {
+            if (BCrypt.checkpw(password, rs.getString("password").replace("$2y$", "$2a$"))) {
+                System.out.println("It matches");
+                u.setNom(rs.getString("username"));
+                u.setEmail(rs.getString("email"));
+                u.setId(rs.getInt("id"));
+                u.setRole(rs.getString("role"));
+                User.connectedUser = u;
+            } else {
+                user = null;
+                System.out.println("It does not match");
+            }
+        } else {
+            u = null;
+        }
+
+        return u;
+    }
+ public User getUserById(int id) {
+        User u = new User();
+        try {
+    
+           String req9= "select * from user WHERE id='"+id+"'";
+           Statement st = con.createStatement();
+           ResultSet rs = st.executeQuery(req9);
+           if (rs.next())
+           u=new User(
+                   rs.getString("nom"), 
+                   rs.getString("email"),
+                   rs.getString("username_canonical"),
+                   rs.getString("password"),
+                   rs.getString("roles"));
+           u.setId(rs.getInt("id"));
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(u);
+        return u;
+    }
+  public List<String> listNumTelAdmin() throws SQLException {
+        String req = "select * from fos_user where (role='admin')";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        List<String> ltemp = new ArrayList<String>();
+        while (rs.next()) {
+            ltemp.add(rs.getString("numtelephone"));
+        }
+        return ltemp;
+    }
+
+    public boolean ajoutPort() throws SQLException {
+        String req = "select * from connecte";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     public ResultSet connectee(User user) throws SQLException {
+        String name = user.getNom();
+        String password = user.getPassword();
+        String pass=password.replace("$2y$", "$2a$");
+        String req = "select * from fos_user where (username='" + name + "'and password='" + pass + "')";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+
+        return rs;
+    }
+
+    public List<Connecte> listpeopleconnected() throws SQLException {
+        String req = "select * from connecte";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        List<Connecte> ltemp = new ArrayList<Connecte>();
+        while (rs.next()) {
+            Connecte c = new Connecte(rs.getInt("port"), rs.getString("username"));
+            ltemp.add(c);
+        }
+        System.out.println(ltemp);
+        return ltemp;
+    }
+
+    public void InsertUserD(int id, int port) throws SQLException {
+        Random rnd = new Random();
+        int abc = rnd.nextInt(69) + 1;
+        String req = "select * from fos_user where (id='" + id + "')";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        String username = "";
+        while (rs.next()) {
+            username = rs.getString("username");
+        }
+        String requete = "insert into connecte (port,username) values(?,?)";
+        PreparedStatement se = con.prepareStatement(requete);
+        se.setInt(1, port);
+        se.setString(2, username);
+        se.executeUpdate();
+    }
+
+    public String returnUsername(int id) throws SQLException {
+
+        String req = "select * from fos_user where (id='" + id + "')";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        String username = "";
+        while (rs.next()) {
+            username = rs.getString("username");
+        }
+        return username;
+    }
+    public boolean returnCurrent(int id) throws SQLException {
+        String username = this.returnUsername(id);
+        String req = "select * from connecte where (username='" + username + "')";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+        if (rs.next()) {
+            return true;
+        }
+        return false;
+    }
+    public boolean deleteconnecteuser(int id ) throws SQLException{
+        if (this.returnCurrent(id)){
+            String s=this.returnUsername(id);
+            String ss = "delete from connecte where ((username= ?)) ";
+        PreparedStatement st = con.prepareStatement(ss);
+        st.setString(1, s);
+        st.execute();
+        return true;
+        }
+        return false;
+    }
+}

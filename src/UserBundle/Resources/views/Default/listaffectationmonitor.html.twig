@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section class="page-heading-section bg-image before-bg" style="background-image: url({{ asset('images/header/p-header4.jpg') }});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-heading">
+                        <h2 class="page-name text-capitalize">blog list</h2>
+                        <a href="#" class="btn btn-default btn-primary">back to home</a>
+                    </div><!--/.page-heading-->
+                </div><!--/.col-md-12-->
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </section><!--/.page-heading-area-->
+
+
+    <div class="blog-page page-wrapper bg-gray s-pd4">
+        <!-- Start blog list border-radius-area -->
+        <div class="blog-page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Start blog list -->
+                        <div class="blog-contect-area blog-list">
+                            <div class="row">
+                                {% for affectation in test %}
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="blog list border-radius">
+                                            <div class="blog-thumb">
+                                                <img src="{{ asset('images/blog/post-1.jpg') }}" alt="blog image">
+                                            </div>
+                                            <div class="blog-details">
+                                                <div class="blog-time">
+                                                    <span class="blog-date"> </span><br>
+
+
+                                                </div>
+                                                <div class="blog-time">
+                                                    <span class="blog-date">Entreprise : {{ affectation.entrepriseid.name }}</span><br>
+                                                    <span class="blog__category">Email : <a href="#">{{ affectation.email }}</a></span>
+                                                </div>
+                                                <div class="blog-time">
+                                                    <span class="blog-date"></span><br>
+                                                </div>
+                                                <div class="blog-title">
+                                                    <h3><a href="#">Full Name: {{ affectation.firstname }}  {{ affectation.middlename }} {{ affectation.lastname }}</a></h3>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item border-0"><h6>College: {{ affectation.college }}</h6></li>
+                                                    <li class="list-group-item border-0"><h6>Department: {{ affectation.department }}</h6></li>
+                                                    <li class="list-group-item border-0"><h6>Level: {{ affectation.level }}</h6></li>
+                                                    <li class="list-group-item border-0"><h6>Hours : {{ affectation.hours }}</h6></li>
+                                                    <li class="list-group-item border-0"><h6>Course: {{ affectation.Course }}</h6></li>
+                                                    <ul />
+                                                    <div class="blog-more">
+                                                        <a href="{{ path('acceptinternshipmonitor',{'id':affectation.id}) }}" class="btn btn-default" onclick="accept({{ affectation.id }})">Accept</a>
+
+                                                        <a href="{{ path('rejectaffectationmonitor',{'id':affectation.id}) }}" class="btn btn-default">Refuse</a>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}</div></div></div></div></div>></div></div>
+
+
+
+
+                <!-- Modal Footer -->
+
+
+            </div>
+        </div>
+    </div>
+    <script>function accept(a){
+
+            alert("hello");
+            alert(a);
+            $("#idaffectation").val(a);
+            $('#myModalHorizontal').modal('show');
+        }
+        function hello(){
+            var e =document.getElementById('sel1');
+            var selectedindex=e.selectedIndex;
+            var f  = e.options[selectedindex].value;
+            alert(f);
+
+        }
+    </script>
+{% endblock %}
+{% block liststud %}{{ parent() }}{% endblock %}
+{% block count2 %}{{ parent() }}{% endblock %}

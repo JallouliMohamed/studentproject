@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block   body %}
+    <section class="page-heading-section before-bg bg-image" style="background-image: url({{ asset('images/header/p-header3.jpg') }});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="page-heading">
+                        <h2 class="page-name text-capitalize">Add affectation</h2>
+                    </div><!--/.page-heading-->
+                </div><!--/.col-md-12-->
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </section><!--/.page-heading-area-->
+
+
+    <div class="register-page page-wrapper s-pd100">
+        <div class="container">
+
+            <div class="login-form-area register-form-area">
+
+                <h2>Apply for Intership</h2>
+                <div id="socila-register" class="social-login-area">
+
+                </div><!--/.social-login-area-->
+                <div class="divider-or text-center">
+
+                </div>
+
+    {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+                {{ form(form) }}
+                {{ form_errors(form) }}
+
+
+                {% for flashMessage in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div></div></div>
+{% endblock %}

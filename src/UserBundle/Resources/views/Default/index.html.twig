@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block count %} {% if (count!=0) %} ({{ count }})<img src="{{ asset('icons8_Notification_25px.png') }}" >{% endif %}{% endblock %}
+{% block listnotif %}{% if (count!=0) %} {% for r in notif %}<li><a href="{{ path('listaffectaion') }}">{{ r.texto }}</a></li> {% endfor %} {% endif %}{% endblock %}
+{% block count2 %} {% if (count2!=0) %} ({{ count2 }})<img src="{{ asset('icons8_Notification_25px.png') }}" >{% endif %}{% endblock %}
+{% block liststud %}{% if (count!=0) %} {% for r in student %}<li><a href="{{ path('studentlist') }}">{{ r.texto }}</a></li> {% endfor %} {% endif %}{% endblock %}
+{% block listnotifmonitor %}{% if (count!=0) %} {% for r in notif %}<li><a href="{{ path('listaffectationmonitor') }}">{{ r.texto }}</a></li> {% endfor %} {% endif %}{% endblock %}
+{% block count3 %} {% if (count!=0) %} ({{ count }})<img src="{{ asset('icons8_Notification_25px.png') }}" >{% endif %}{% endblock %}
+{% block count4 %} {% if (count3!=0) %} ({{ count3 }})<img src="{{ asset('icons8_Notification_25px.png') }}" >{% endif %}{% endblock %}
+{% block listnotifstudent %}{% if (count3!=0) %} {% for r in notif %}<li><a href="{{ path('homepage') }}">{{ r.texto }}</a></li> {% endfor %} {% endif %}{% endblock %}
+{% block countprovider %}{% if(count!=0) %}({{ count }})<img src="{{ asset('icons8_Notification_25px.png') }}" >{% endif %}{% endblock %}
+{% block listnotifprovider %}{% if(count!=0) %}{% for r in notif %}<li><a href="{{ path('homepage') }}">{{ r.texto }}</a></li> {% endfor %} {% endif %}{% endblock %}
+{% block countMessage %}{% if(count4!=0) %}({{ count4 }})<img src="{{ asset('icons8_Notification_25px.png') }}" >{% endif %}{% endblock %}
+{% block countmsg %}{% if(count4!=0) %}({{ count4 }})<img src="{{ asset('icons8_Notification_25px.png') }}" >{% endif %}{% endblock %}
